@@ -983,7 +983,7 @@ export default function Home({ data }) {
 		<>
 		<Head>
 			<title>Lottie68</title>
-			<meta name="viewport" content="initial-scale=1.0" />
+			<meta name="viewport" />
 		</Head>
 		<div className="App">
 			<div className="container">
