@@ -1,3 +1,5 @@
+import Head from 'next/head'
+
 import { load } from 'cheerio'
 import axios from 'axios'
 import https from 'https'
@@ -978,6 +980,11 @@ export default function Home({ data }) {
 	}, [xLo, xDe, xXN, xXien, xBC] )
 
 	return (
+		<>
+		<Head>
+			<title>Lottie68</title>
+			<meta name="viewport" content="initial-scale=1.0" />
+		</Head>
 		<div className="App">
 			<div className="container">
 				<div className="row options">
@@ -1067,6 +1074,7 @@ export default function Home({ data }) {
 				
 			</div>
 		</div>
+		</>
 	)
 }
 
