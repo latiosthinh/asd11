@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Link from 'next/link';
+import Link from 'next/link'
 import { load } from 'cheerio'
 import axios from 'axios'
 import https from 'https'
