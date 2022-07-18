@@ -4,7 +4,7 @@ import { load } from 'cheerio'
 import axios from 'axios'
 import https from 'https'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { chunk, removeAccents, countOccurrences, calculateXien } from './api/helper'
 import Select from './api/Select'
 import { dataLo, dataDe, dataBaCang, dataXien, dataXienNhay } from './api/DataSelect'
@@ -958,7 +958,7 @@ export default function Home({ data }) {
 		handleFinalResult()
 	}
 
-	const handleFinalResult = () => {
+	const handleFinalResult = useCallback( () => {
 		setFinalResult( `<br/>
 			<h3 class="text-xl font-bold">Lô: ${Math.round(tongLo * 100)/100} = ${Math.round(tongLo * xLo * 100)/100}/<span class="text-rose-500">${Math.round( tongLoHit *1000 )/1000}</span> = <span class="text-3xl">${Math.round( (tongLo * xLo -tongLoHit) *1000 )/1000}</span></h3>
 			<h3 class="text-xl font-bold">Đề: ${Math.round(tongDe * 100)/100} = ${Math.round(tongDe * xDe * 100)/100}/<span class="text-rose-500">${Math.round( tongDeHit *1000 )/1000}</span> = <span class="text-3xl">${Math.round( (tongDe * xDe -tongDeHit) * 1000 )/1000}</span></h3>
@@ -978,15 +978,11 @@ export default function Home({ data }) {
 				${Math.round( 0 - (tongLo*xLo + tongDe*xDe + tongBC*xBC + tongXien*xXien + tongXN*xXN + tongXQ*xXien - tongLoHit - tongDeHit - tongBCHit - tongXienHit - tongXNHit - tongXQHit) *1000 ) / 1000 }
 			</h2>
 		`)
-	}
+	}, [tongBC, tongBCHit, tongDe, tongDeHit, tongLo, tongLoHit, tongXN, tongXNHit, tongXQ, tongXQHit, tongXien, tongXienHit, xBC, xDe, xLo, xXN, xXien] )
 
 	useEffect( () => {
 		handleFinalResult()
-	}, [tongLo] )
-
-	useEffect( () => {
-		handleFinalResult()
-	}, [xLo, xDe, xXN, xXien, xBC] )
+	}, [handleFinalResult, tongBC, tongBCHit, tongDe, tongDeHit, tongLo, tongLoHit, tongXN, tongXNHit, tongXQ, tongXQHit, tongXien, tongXienHit, xBC, xDe, xLo, xXN, xXien] )
 
 	return (
 		<>
