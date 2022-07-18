@@ -14,6 +14,9 @@ import Image from 'next/image'
 import CalculatorIcon from '../public/calculator.svg';
 
 export default function Home({ data }) {
+	if ( !data ) {
+		return;
+	}
 	const de_kq = data[0].substr(-2)
 	const bc_kq = data[0].substr(-3)
 	let lo_kq = []

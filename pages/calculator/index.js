@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import React, { useState } from 'react'
 
 export default function Calculator() {
@@ -24,11 +23,6 @@ export default function Calculator() {
     }
 
 	return (
-		<>
-		<Head>
-			<title>Lottie68</title>
-			<meta name="viewport" />
-		</Head>
 		<div className="bg-gray-800 h-screen w-screen">
 			<div className="mx-auto overflow-hidden fixed top-1/2 left-1/2 
 					transform -translate-x-1/2 -translate-y-1/2 shadow-lg bg-[#000000] 
@@ -161,6 +155,5 @@ export default function Calculator() {
 				</div>
 			</div>
 		</div>
-		</>
 	)
 }
