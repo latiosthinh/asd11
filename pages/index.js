@@ -1,5 +1,5 @@
 import Head from 'next/head'
-
+import Link from 'next/link';
 import { load } from 'cheerio'
 import axios from 'axios'
 import https from 'https'
@@ -10,26 +10,29 @@ import Select from './api/Select'
 import { dataLo, dataDe, dataBaCang, dataXien, dataXienNhay } from './api/DataSelect'
 import { bo, dau, kep, kl, dit, tong, anXQ, dinh, ccc, lll, cll, lcc, nnn, ttt, ntt, tnn } from './api/DataBo'
 
+import Image from 'next/image'
+import CalculatorIcon from '../public/calculator.svg';
+
 export default function Home({ data }) {
-  const de_kq = data[0].substr(-2)
-  const bc_kq = data[0].substr(-3)
-  let lo_kq = []
-  data.forEach( d => {
-    if ( d.length < 3 ) {
-      lo_kq.push( d )
-    }
-    else {
-      lo_kq.push( d.substr(-2) )
-    }
-  });
+	const de_kq = data[0].substr(-2)
+	const bc_kq = data[0].substr(-3)
+	let lo_kq = []
+	data.forEach( d => {
+		if ( d.length < 3 ) {
+		lo_kq.push( d )
+		}
+		else {
+		lo_kq.push( d.substr(-2) )
+		}
+	});
 
-  lo_kq.sort()
-  let loHtml = ''
-  lo_kq.forEach( l => loHtml += l + '..' )
+	lo_kq.sort()
+	let loHtml = ''
+	lo_kq.forEach( l => loHtml += l + '..' )
 
-  const keywords = [ 'lo', 'l0', 'de', 'bc', 'xien,xn', 'xien', 'xq', 'xn' ]
+	const keywords = [ 'lo', 'l0', 'de', 'bc', 'xien,xn', 'xien', 'xq', 'xn' ]
 
-  const [firstInput, setFirstInput] = useState( '' );
+	const [firstInput, setFirstInput] = useState( '' );
 	const [secondInput, setSecondInput] = useState( '' );
 	const [analyzeInput, setAnalyzeInput] = useState( '' );
 
@@ -954,18 +957,21 @@ export default function Home({ data }) {
 
 	const handleFinalResult = () => {
 		setFinalResult( `<br/>
-			<h3>Lô: ${Math.round(tongLo * 100)/100} = ${Math.round(tongLo * xLo * 100)/100}/<span class="hit">${Math.round( tongLoHit *1000 )/1000}</span> = <span class="final-result">${Math.round( (tongLo * xLo -tongLoHit) *1000 )/1000}</span></h3>
-			<h3>Đề: ${Math.round(tongDe * 100)/100} = ${Math.round(tongDe * xDe * 100)/100}/<span class="hit">${Math.round( tongDeHit *1000 )/1000}</span> = <span class="final-result">${Math.round( (tongDe * xDe -tongDeHit) * 1000 )/1000}</span></h3>
-			<h3>BC: ${Math.round(tongBC * 100)/100} = ${Math.round(tongBC * xBC * 100)/100}/<span class="hit">${Math.round( tongBCHit *1000 )/1000}</span> = <span class="final-result">${Math.round( (tongBC * xBC -tongBCHit) * 1000 )/1000}</span></h3>
-			<h3>X : ${Math.round(tongXien * 100)/100} = ${Math.round(tongXien * xXien * 100)/100}/<span class="hit">${Math.round( tongXienHit *1000 )/1000}</span> = <span class="final-result">${Math.round( (tongXien * xXien -tongXienHit) *1000 )/1000}</h3>
-			<h3>XN: ${Math.round(tongXN * 100)/100} = ${Math.round(tongXN * xXN * 100)/100}/<span class="hit">${Math.round( tongXNHit *1000 )/1000}</span> = <span class="final-result">${Math.round( (tongXN * xXN - tongXNHit) *1000 )/1000}</h3>
-			<h3>XQ: ${Math.round(tongXQ * 100)/100} = ${Math.round(tongXQ * xXien * 100)/100}/<span class="hit">${Math.round( tongXQHit *1000 )/1000}</span> = <span class="final-result">${Math.round( (tongXQ * xXien - tongXQHit) *1000 )/1000}</span></h3>
+			<h3 class="text-xl font-bold">Lô: ${Math.round(tongLo * 100)/100} = ${Math.round(tongLo * xLo * 100)/100}/<span class="text-rose-500">${Math.round( tongLoHit *1000 )/1000}</span> = <span class="text-3xl">${Math.round( (tongLo * xLo -tongLoHit) *1000 )/1000}</span></h3>
+			<h3 class="text-xl font-bold">Đề: ${Math.round(tongDe * 100)/100} = ${Math.round(tongDe * xDe * 100)/100}/<span class="text-rose-500">${Math.round( tongDeHit *1000 )/1000}</span> = <span class="text-3xl">${Math.round( (tongDe * xDe -tongDeHit) * 1000 )/1000}</span></h3>
+			<h3 class="text-xl font-bold">BC: ${Math.round(tongBC * 100)/100} = ${Math.round(tongBC * xBC * 100)/100}/<span class="text-rose-500">${Math.round( tongBCHit *1000 )/1000}</span> = <span class="text-3xl">${Math.round( (tongBC * xBC -tongBCHit) * 1000 )/1000}</span></h3>
+			<h3 class="text-xl font-bold">X : ${Math.round(tongXien * 100)/100} = ${Math.round(tongXien * xXien * 100)/100}/<span class="text-rose-500">${Math.round( tongXienHit *1000 )/1000}</span> = <span class="text-3xl">${Math.round( (tongXien * xXien -tongXienHit) *1000 )/1000}</h3>
+			<h3 class="text-xl font-bold">XN: ${Math.round(tongXN * 100)/100} = ${Math.round(tongXN * xXN * 100)/100}/<span class="text-rose-500">${Math.round( tongXNHit *1000 )/1000}</span> = <span class="text-3xl">${Math.round( (tongXN * xXN - tongXNHit) *1000 )/1000}</h3>
+			<h3 class="text-xl font-bold">XQ: ${Math.round(tongXQ * 100)/100} = ${Math.round(tongXQ * xXien * 100)/100}/<span class="text-rose-500">${Math.round( tongXQHit *1000 )/1000}</span> = <span class="text-3xl">${Math.round( (tongXQ * xXien - tongXQHit) *1000 )/1000}</span></h3>
 			<br>
-			<h2>TỔNG = <span class="final-result hit">
-				${Math.round( (tongLo*xLo + tongDe*xDe + tongBC*xBC + tongXien*xXien + tongXN*xXN + tongXQ*xXien - tongLoHit - tongDeHit - tongBCHit - tongXienHit - tongXNHit - tongXQHit) *1000 ) / 1000 }
-			</span></h2>
+			<h2>
+				<span class="text-2xl font-bold">TỔNG = </span>
+				<span class="text-rose-500 text-3xl font-bold">
+					${Math.round( (tongLo*xLo + tongDe*xDe + tongBC*xBC + tongXien*xXien + tongXN*xXN + tongXQ*xXien - tongLoHit - tongDeHit - tongBCHit - tongXienHit - tongXNHit - tongXQHit) *1000 ) / 1000 }
+				</span>
+			</h2>
 
-			<h2 class="final-result hit">Khách =
+			<h2 class="text-rose-500 font-bold text-3xl">Khách =
 				${Math.round( 0 - (tongLo*xLo + tongDe*xDe + tongBC*xBC + tongXien*xXien + tongXN*xXN + tongXQ*xXien - tongLoHit - tongDeHit - tongBCHit - tongXienHit - tongXNHit - tongXQHit) *1000 ) / 1000 }
 			</h2>
 		`)
@@ -985,44 +991,52 @@ export default function Home({ data }) {
 			<title>Lottie68</title>
 			<meta name="viewport" />
 		</Head>
-		<div className="App">
-			<div className="container">
-				<div className="row options">
-					<div className="col-25"><Select obj={ dataLo } cb={ handleXLo } /></div>
-					<div className="col-25"><Select obj={ dataDe } cb={ handleXDe } /></div>
-					<div className="col-25"><Select obj={ dataXien } cb={ handleXXien } /></div>
-					<div className="col-25"><Select obj={ dataXienNhay } cb={ handleXXN } /></div>
-					<div className="col-25"><Select obj={ dataBaCang } cb={handleXBC} /></div>
+		<div className="App py-5">
+			<div className="container mx-auto">
+				<div className="flex items-center justify-between mb-5">
+					<div className="flex-initial w-1/6"><Select obj={ dataLo } cb={ handleXLo } /></div>
+					<div className="flex-initial w-1/6"><Select obj={ dataDe } cb={ handleXDe } /></div>
+					<div className="flex-initial w-1/6"><Select obj={ dataXien } cb={ handleXXien } /></div>
+					<div className="flex-initial w-1/6"><Select obj={ dataXienNhay } cb={ handleXXN } /></div>
+					<div className="flex-initial w-1/6"><Select obj={ dataBaCang } cb={handleXBC} /></div>
+
+					<Link href="/calculator">
+						<a className="flex flex-initial w-14 h-14 justify-center items-center rounded-full bg-violet-500">
+							<Image src={CalculatorIcon} alt="Calculator" width="30px" />
+						</a>
+					</Link>
 				</div>
 
-				<p>3 càng: <span className="hit">{bc_kq}</span></p>
-				<p>Đề: <span className="hit">{de_kq}</span></p>
+				<p>3 càng: <span className="text-rose-500 font-bold">{bc_kq}</span></p>
+				<p>Đề: <span className="text-rose-500 font-bold">{de_kq}</span></p>
 				<p>Lô: {loHtml}</p>
 
-				<div className="row">
-					<div className="col-6">
-						<textarea className="first-input" value={firstInput} onChange={handleFirstIputChange}></textarea>
+				<div className="flex mt-5 mb-5 gap-5">
+					<div className="flex-initial w-1/2">
+						<textarea className="p-2 border-solid border-2 border-black-600 rounded-sm w-full h-80 bg-gray-50 overscroll-y-auto"
+								value={firstInput} onChange={handleFirstIputChange}></textarea>
 					</div>
-					<div className="col-6">
-						<div className="second-input" dangerouslySetInnerHTML={{__html: secondInput}}></div>
+					<div className="flex-initial w-1/2">
+						<div className="border-solid border-2 border-black-600 rounded-sm w-full h-80 bg-gray-50 overscroll-y-auto"
+							dangerouslySetInnerHTML={{__html: secondInput}}></div>
 					</div>
 				</div>
 
-				<button className="paste-input" onClick={ handlePaste }>Dán</button>
+				<button className="bg-violet-500 px-7 py-3 text-white rounded-sm mr-9" onClick={ handlePaste }>Dán</button>
 				{ firstInput &&
-					<button className="split-input bg-brown" onClick={ splitSMS }>Tách tin</button>
+					<button className="bg-yellow-900 px-7 py-3 text-white rounded-sm mr-9" onClick={ splitSMS }>Tách tin</button>
 				}
 			
 				{ secondInput &&
-					<button className="analyze-input bg-orange" onClick={ handleAnalyze }>Phân tích</button>
+					<button className="bg-orange-500 px-7 py-3 text-white rounded-sm mr-9" onClick={ handleAnalyze }>Phân tích</button>
 				}
 
 				{ ( finalDe || finalLo || finalXien || finalXQ || finalXN ||finalBC ) &&
-					<button className="calculate-input bg-red" onClick={ handleCalculate }>Tính điểm</button>
+					<button className="bg-rose-500 px-7 py-3 text-white rounded-sm" onClick={ handleCalculate }>Tính điểm</button>
 				}
 
-				<div className="row">
-					<div className="col-6">
+				<div className="flex">
+					<div className="flex-initial w-1/2">
 						{ finalDe &&
 						<>
 						<h3>Đề</h3>
@@ -1066,12 +1080,10 @@ export default function Home({ data }) {
 						}
 					</div>
 
-					<div className="col-6">
+					<div className="flex-initial w-1/2">
 						<div className="final-calculate" dangerouslySetInnerHTML={{__html: finalResult}} />
 					</div>
 				</div>
-
-				
 			</div>
 		</div>
 		</>
@@ -1079,16 +1091,16 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+	const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
-  let url = "https://kqxs.vn"
-  const { data } = await axios.get( url, {httpsAgent} )
-  const $ = load( data )
+	let url = "https://kqxs.vn"
+	const { data } = await axios.get( url, {httpsAgent} )
+	const $ = load( data )
 
-  let ketqua = []
-  $( '#mien-bac #result_1 .quantity-of-number [data-value]' ).each( (_, e) => {
-    ketqua.push( $(e).text() )
-  })
+	let ketqua = []
+	$( '#mien-bac #result_1 .quantity-of-number [data-value]' ).each( (_, e) => {
+		ketqua.push( $(e).text() )
+	})
 
-  return { props: { data: ketqua } }
+	return { props: { data: ketqua } }
 }
