@@ -343,7 +343,7 @@ export default function Home({ data }) {
 			// 	) {
 			// 	str += '<p>' + s + '<span class="hit">---&gt;(ko hieu)</span>' + '</p>'
 			// } else {
-				str += '<p>' + s + '</p>'
+				str += '<p class="break-words mb-2">' + s + '</p>'
 			// }
 		} )
 		setSecondInput( str )
@@ -383,13 +383,13 @@ export default function Home({ data }) {
 			const arr = e.split( '-' )[0].split( '.' )
 			arr.forEach( a => {
 				if ( countOccurrences( lo_kq, a ) > 1 ) {
-					textLo1 += `<span class="${lo_kq.includes(a) ? 'hit' : ''}">${a} (x${countOccurrences( lo_kq, a )})</span>.`
+					textLo1 += `<span class="${lo_kq.includes(a) ? 'font-bold text-rose-500' : ''}">${a} (x${countOccurrences( lo_kq, a )})</span>.`
 				} else {
-					textLo1 += `<span class="${lo_kq.includes(a) ? 'hit' : ''}">${a}</span>.`
+					textLo1 += `<span class="${lo_kq.includes(a) ? 'font-bold text-rose-500' : ''}">${a}</span>.`
 				}
 			} )
 
-			textLo1 += `-<span class="bold brown">${e.split( '-' )[1]}</span></p>`
+			textLo1 += `-<span class="font-bold">${e.split( '-' )[1]}</span></p>`
 			textLo += textLo1.replace( /\.-/gmi, '-' )
 		} )
 		setFinalLo( textLo )
@@ -567,10 +567,10 @@ export default function Home({ data }) {
 			let textDe1 = '<p>'
 			const arr = e.split( '-' )[0].split( '.' )
 			arr.forEach( a => {
-				textDe1 += `<span class="${de_kq.includes(a) ? 'hit' : ''}">${a}</span>.`
+				textDe1 += `<span class="${de_kq.includes(a) ? 'font-bold text-rose-500' : ''}">${a}</span>.`
 			} )
 
-			textDe1 += `-<span class="bold brown">${e.split( '-' )[1]}</span></p>`
+			textDe1 += `-<span class="font-bold">${e.split( '-' )[1]}</span></p>`
 			textDe += textDe1.replace( /\.-/gmi, '-' )
 		} )
 		setFinalDe( textDe )
@@ -598,7 +598,7 @@ export default function Home({ data }) {
 		setBC( newBC )
 
 		let textBC = ''
-		newBC.forEach( e => textBC += `<p class="${bc_kq.includes( e.split( '-' )[0] ) ? 'hit' : ''}">${e}</p>` )
+		newBC.forEach( e => textBC += `<p class="${bc_kq.includes( e.split( '-' )[0] ) ? 'font-bold text-rose-500' : ''}">${e}</p>` )
 		setFinalBC( textBC )
 	}
 
@@ -627,7 +627,7 @@ export default function Home({ data }) {
 		let textXien = ''
 		input.forEach( e => {
 			const arr = e.split( '-' )[0].split( '.' ) 
-			textXien += `<p class="${e.includes( 'undefined' ) ? 'warning' : ''}${calculateXien( arr, lo_kq )===arr.length ? 'hit' : ''}">${e}</p>`
+			textXien += `<p class="${e.includes( 'undefined' ) ? 'font-bold text-rose-500' : ''}${calculateXien( arr, lo_kq )===arr.length ? 'font-bold text-rose-500' : ''}">${e}</p>`
 		} )
 		setFinalXien( textXien )
 	}
@@ -677,7 +677,7 @@ export default function Home({ data }) {
 		setXienNhay( input )
 
 		let textXN = ''
-		input.forEach( e => textXN += `<p class="${e.includes( 'undefined' ) ? 'warning' : ''}${calculateXien( lo_kq, e.split( '-' )[0].split('.') )>1 ? 'hit' : ''}">${e}</p>` )
+		input.forEach( e => textXN += `<p class="${e.includes( 'undefined' ) ? 'font-bold text-rose-500' : ''}${calculateXien( lo_kq, e.split( '-' )[0].split('.') )>1 ? 'font-bold text-rose-500' : ''}">${e}</p>` )
 		setFinalXN( textXN )
 	}
 
@@ -751,8 +751,8 @@ export default function Home({ data }) {
 		let textXQ = ''
 		temp.forEach( e => {
 			const arr = e.split( '-' )[0].split( '.' )
-			const hit = calculateXien( arr, lo_kq )>1 ? `<span class="hit">(${calculateXien( arr, lo_kq )} con)</span>` : ''
-			textXQ += `<p class="${e.includes( 'undefined' ) ? 'warning' : ''}">${e} ${hit}</p>`
+			const hit = calculateXien( arr, lo_kq )>1 ? `<span class="font-bold text-rose-500">(${calculateXien( arr, lo_kq )} con)</span>` : ''
+			textXQ += `<p class="${e.includes( 'undefined' ) ? 'font-bold text-rose-500' : ''}">${e} ${hit}</p>`
 		} )
 		setFinalXQ( textXQ )
 	}
@@ -1012,11 +1012,11 @@ export default function Home({ data }) {
 
 				<div className="flex mt-5 mb-5 gap-5">
 					<div className="flex-initial w-1/2">
-						<textarea className="p-2 border-solid border-2 border-black-600 rounded-sm w-full h-80 bg-gray-50 overscroll-y-auto"
+						<textarea className="p-2 border-solid border-2 border-black-600 rounded-sm w-full h-80 bg-gray-50 overflow-y-scroll"
 								value={firstInput} onChange={handleFirstIputChange}></textarea>
 					</div>
 					<div className="flex-initial w-1/2">
-						<div className="border-solid border-2 border-black-600 rounded-sm w-full h-80 bg-gray-50 overscroll-y-auto"
+						<div className="p-2 border-solid border-2 border-black-600 rounded-sm w-full h-80 bg-gray-50 overflow-y-scroll"
 							dangerouslySetInnerHTML={{__html: secondInput}}></div>
 					</div>
 				</div>
@@ -1034,47 +1034,47 @@ export default function Home({ data }) {
 					<button className="bg-rose-500 px-7 py-3 text-white rounded-sm" onClick={ handleCalculate }>Tính điểm</button>
 				}
 
-				<div className="flex">
+				<div className="flex gap-10">
 					<div className="flex-initial w-1/2">
 						{ finalDe &&
 						<>
-						<h3>Đề</h3>
-						<div className="third-input" dangerouslySetInnerHTML={{__html: finalDe}} />
+						<h3 className="text-xl font-bold mt-5">Đề</h3>
+						<div className="break-words" dangerouslySetInnerHTML={{__html: finalDe}} />
 						</>
 						}
 
 						{ finalBC &&
 							<>
-							<h3>Ba càng</h3>
-							<div className="third-input" dangerouslySetInnerHTML={{__html: finalBC}} />
+							<h3 className="text-xl font-bold mt-5">Ba càng</h3>
+							<div className="break-words" dangerouslySetInnerHTML={{__html: finalBC}} />
 							</>
 						}
 
 						{ finalLo &&
 							<>
-							<h3>Lô</h3>
-							<div className="third-input" dangerouslySetInnerHTML={{__html: finalLo}} />
+							<h3 className="text-xl font-bold mt-5">Lô</h3>
+							<div className="break-words" dangerouslySetInnerHTML={{__html: finalLo}} />
 							</>
 						}
 
 						{ finalXien &&
 							<>
-							<h3>Xiên</h3>
-							<div className="third-input" dangerouslySetInnerHTML={{__html: finalXien}} />
+							<h3 className="text-xl font-bold mt-5">Xiên</h3>
+							<div className="break-words" dangerouslySetInnerHTML={{__html: finalXien}} />
 							</>
 						}
 
 						{ finalXQ &&
 							<>
-							<h3>Xiên quay</h3>
-							<div className="third-input" dangerouslySetInnerHTML={{__html: finalXQ}} />
+							<h3 className="text-xl font-bold mt-5">Xiên quay</h3>
+							<div className="break-words" dangerouslySetInnerHTML={{__html: finalXQ}} />
 							</>
 						}
 
 						{ finalXN &&
 							<>
-							<h3>Xiên nháy</h3>
-							<div className="third-input" dangerouslySetInnerHTML={{__html: finalXN}} />
+							<h3 className="text-xl font-bold mt-5">Xiên nháy</h3>
+							<div className="break-words" dangerouslySetInnerHTML={{__html: finalXN}} />
 							</>
 						}
 					</div>
