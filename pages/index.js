@@ -923,14 +923,16 @@ export default function Home({ data }) {
 
 		let tempXN = 0
 		let hitXN = 0
+		console.log(xiennhay)
 		xiennhay.forEach( d => {
 			const price = parseFloat( d.split( '-' )[1] )
 			tempXN += price
 
 			const xxx = (d.split( '-' )[0]).split('.')
 
-			if ( calculateXien( lo_kq, xxx ) === xxx.length ) {
+			if ( calculateXien( xxx, lo_kq ) === xxx.length ) {
 				hitXN += price * 10
+				console.log('123')
 			}
 		} )
 		setTongXN( tempXN )
