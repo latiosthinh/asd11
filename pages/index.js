@@ -14,7 +14,7 @@ import Image from 'next/image'
 import CalculatorIcon from '../public/calculator.svg';
 
 export default function Home({ data }) {
-	if ( !data ) {
+	if ( !data || !data[0] ) {
 		return;
 	}
 	const de_kq = data[0].substr(-2)
@@ -1000,12 +1000,6 @@ export default function Home({ data }) {
 					<div className="flex-initial w-1/6"><Select obj={ dataXien } cb={ handleXXien } /></div>
 					<div className="flex-initial w-1/6"><Select obj={ dataXienNhay } cb={ handleXXN } /></div>
 					<div className="flex-initial w-1/6"><Select obj={ dataBaCang } cb={handleXBC} /></div>
-
-					<Link href="/calculator">
-						<a className="flex flex-initial w-14 h-14 justify-center items-center rounded-full bg-violet-500">
-							<Image src={CalculatorIcon} alt="Calculator" width="30px" />
-						</a>
-					</Link>
 				</div>
 
 				<p>3 càng: <span className="text-rose-500 font-bold">{bc_kq}</span></p>
