@@ -987,7 +987,7 @@ export default function Home({ data }) {
 		<>
 		<Head>
 			<title>Lottie68</title>
-			<meta name="viewport" content="width=device-width, initial-scale=0.1"/>
+			<meta name="viewport" content="width=device-width, initial-scale=0.5"/>
 		</Head>
 		<div className="App p-5">
 			<div className="container mx-auto">
