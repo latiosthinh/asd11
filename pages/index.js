@@ -10,9 +10,6 @@ import Select from './api/Select'
 import { dataLo, dataDe, dataBaCang, dataXien, dataXienNhay } from './api/DataSelect'
 import { bo, dau, kep, kl, dit, tong, anXQ, dinh, ccc, lll, cll, lcc, nnn, ttt, ntt, tnn } from './api/DataBo'
 
-import Image from 'next/image'
-import CalculatorIcon from '../public/calculator.svg';
-
 export default function Home({ data }) {
 	if ( !data || !data[0] ) {
 		return;
@@ -990,9 +987,9 @@ export default function Home({ data }) {
 		<>
 		<Head>
 			<title>Lottie68</title>
-			<meta name="viewport" />
+			<meta name="viewport" content="width=device-width, initial-scale=0.1"/>
 		</Head>
-		<div className="App py-5">
+		<div className="App p-5">
 			<div className="container mx-auto">
 				<div className="flex items-center justify-between mb-5">
 					<div className="flex-initial w-1/6"><Select obj={ dataLo } cb={ handleXLo } /></div>
