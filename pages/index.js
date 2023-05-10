@@ -928,8 +928,9 @@ export default function Home({ data }) {
 			const xxx = (d.split( '-' )[0]).split('.')
 			console.log(lo_kq)
 			console.log(xxx)
-			console.log(calculateXien( lo_kq, xxx ))
-			hitXN += calculateXN( xxx, lo_kq ) * 10
+			if (calculateXN( xxx, lo_kq ) >= xxx.length) {
+				hitXN += price * 10
+			}
 		} )
 		setTongXN( tempXN )
 		setTongXNHit( hitXN )
