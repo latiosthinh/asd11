@@ -116,7 +116,15 @@ const hasKeywords = ( arr1, arr2 ) => {
 const countOccurrences = ( arr, val ) => arr.reduce( (a, v) => (v === val ? a + 1 : a), 0 )
 
 const calculateXien = ( arr1, arr2 ) => arr1.filter( v => arr2.includes( v ) ).length
+const calculateXN = (arr1, arr2) => {
+	let count = 0;
 
+	arr1.forEach(e => {
+		arr2.forEach(e2 => e2 === e && count++)
+	})
+
+	return count
+}
 function chunk(arr, size = 2) {
     const arrChildren = [];
     for ( let i=0; i<Math.ceil( arr.length / size ); i++ ) {
@@ -125,4 +133,4 @@ function chunk(arr, size = 2) {
     return arrChildren;
 }
 
-export { handleText, chunk, hasKeywords, detectAndTransform, getIndicesOf, removeAccents, countOccurrences, calculateXien }
+export { handleText, chunk, hasKeywords, detectAndTransform, getIndicesOf, removeAccents, countOccurrences, calculateXien, calculateXN }

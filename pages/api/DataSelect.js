@@ -20,7 +20,7 @@ const dataXienNhay = {
 
 const dataBaCang = { 
 	title: '3 càng',
-	data: [ 0.7, 0.8, 1 ]
+	data: [ 0.7, 0.75, 0.8, 1 ]
 }
 
 export { dataLo, dataDe, dataBaCang, dataXien, dataXienNhay }

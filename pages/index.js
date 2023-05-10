@@ -5,7 +5,7 @@ import axios from 'axios'
 import https from 'https'
 
 import { useState, useEffect, useCallback } from 'react'
-import { chunk, removeAccents, countOccurrences, calculateXien } from './api/helper'
+import { chunk, removeAccents, countOccurrences, calculateXien, calculateXN } from './api/helper'
 import Select from './api/Select'
 import { dataLo, dataDe, dataBaCang, dataXien, dataXienNhay } from './api/DataSelect'
 import { bo, dau, kep, kl, dit, tong, anXQ, dinh, ccc, lll, cll, lcc, nnn, ttt, ntt, tnn } from './api/DataBo'
@@ -926,11 +926,10 @@ export default function Home({ data }) {
 			tempXN += price
 
 			const xxx = (d.split( '-' )[0]).split('.')
-
-			if ( calculateXien( xxx, lo_kq ) === xxx.length ) {
-				hitXN += price * 10
-				console.log('123')
-			}
+			console.log(lo_kq)
+			console.log(xxx)
+			console.log(calculateXien( lo_kq, xxx ))
+			hitXN += calculateXN( xxx, lo_kq ) * 10
 		} )
 		setTongXN( tempXN )
 		setTongXNHit( hitXN )
