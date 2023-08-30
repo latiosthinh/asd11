@@ -11,9 +11,8 @@ import { dataLo, dataDe, dataBaCang, dataXien, dataXienNhay } from './api/DataSe
 import { bo, dau, kep, kl, dit, tong, anXQ, dinh, ccc, lll, cll, lcc, nnn, ttt, ntt, tnn } from './api/DataBo'
 
 export default function Home({ data }) {
-	if ( !data || !data[0] ) {
-		return;
-	}
+	data = data.map(d => d.replace(/\s?\.\s/, ""))
+	console.log(data)
 	const de_kq = data[0].substr(-2)
 	const bc_kq = data[0].substr(-3)
 	let lo_kq = []
@@ -1090,7 +1089,7 @@ export async function getServerSideProps() {
 	const $ = load( data )
 
 	let ketqua = []
-	$( '#mien-bac #result_1 .quantity-of-number [data-value]' ).each( (_, e) => {
+	$( '#mien-bac .table-result-lottery .quantity-of-number [data-value]' ).each( (_, e) => {
 		ketqua.push( $(e).text() )
 	})
 
