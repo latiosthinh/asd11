@@ -1082,14 +1082,15 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-	const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+	const httpsAgent = new https.Agent({ rejectUnauthorized: false, maxContentLength: Infinity });
 
 	let url = "https://kqxs.vn"
 	const { data } = await axios.get( url, {httpsAgent} )
+	// const data = await fetch(url, httpsAgent)
 	const $ = load( data )
 
 	let ketqua = []
-	$( '#mien-bac .table-result-lottery .quantity-of-number [data-value]' ).each( (_, e) => {
+	$( '#mien-bac .table-result-lottery#result_1 [data-value]' ).each( (_, e) => {
 		ketqua.push( $(e).text() )
 	})
 
