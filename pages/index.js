@@ -1,14 +1,11 @@
+import { JSDOM } from 'jsdom'
 import Head from 'next/head'
-import Link from 'next/link'
-import { load } from 'cheerio'
-import axios from 'axios'
-import https from 'https'
 
-import { useState, useEffect, useCallback } from 'react'
-import { chunk, removeAccents, countOccurrences, calculateXien, calculateXN } from './api/helper'
+import { useCallback, useEffect, useState } from 'react'
+import { anXQ, bo, ccc, cll, dau, dinh, dit, kep, kl, lcc, lll, nnn, ntt, tnn, tong, ttt } from './api/DataBo'
+import { dataBaCang, dataDe, dataLo, dataXien, dataXienNhay } from './api/DataSelect'
 import Select from './api/Select'
-import { dataLo, dataDe, dataBaCang, dataXien, dataXienNhay } from './api/DataSelect'
-import { bo, dau, kep, kl, dit, tong, anXQ, dinh, ccc, lll, cll, lcc, nnn, ttt, ntt, tnn } from './api/DataBo'
+import { calculateXN, calculateXien, chunk, countOccurrences, removeAccents } from './api/helper'
 
 export default function Home({ data }) {
 	data = data.map(d => d.replace(/\s?\.\s/, ""))
@@ -1082,16 +1079,17 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-	const httpsAgent = new https.Agent({ rejectUnauthorized: false, maxContentLength: Infinity });
-
 	let url = "https://kqxs.vn"
-	const { data } = await axios.get( url, {httpsAgent} )
-	// const data = await fetch(url, httpsAgent)
-	const $ = load( data )
+	const response = await fetch( url )
+	const html = await response.text()
+	const dom = new JSDOM(html)
+	const document = dom.window.document
 
 	let ketqua = []
-	$( '#mien-bac .table-result-lottery#result_1 [data-value]' ).each( (_, e) => {
-		ketqua.push( $(e).text() )
+	// #mien-bac .table-result-lottery#result_1 [data-value]
+	const tableResult = document.querySelector("#result_1")
+	tableResult.querySelectorAll('[data-value]').forEach(e => {
+		ketqua.push( e.textContent )
 	})
 
 	return { props: { data: ketqua } }
