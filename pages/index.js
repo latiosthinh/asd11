@@ -8,7 +8,7 @@ import Select from './api/Select'
 import { calculateXN, calculateXien, chunk, countOccurrences, removeAccents } from './api/helper'
 
 export default function Home({ data }) {
-	data = data.map(d => d.replace(/\s?\.\s/, ""))
+	data = data.map(d => d.replace(/\s?\.\s/, "").replace(/[\n\s]/, "").trim())
 	console.log(data)
 	const de_kq = data[0].substr(-2)
 	const bc_kq = data[0].substr(-3)
@@ -1079,7 +1079,12 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-	let url = "https://kqxs.vn"
+	// let url = "https://kqxs.vn"
+	// const prizeSelector = ['[data-value]']
+	
+	let url = "https://ketqua.vn/"
+	const prizeSelector = ['.txt-special-prize', '.txt-normal-prize']
+
 	const response = await fetch( url )
 	const html = await response.text()
 	const dom = new JSDOM(html)
@@ -1087,9 +1092,11 @@ export async function getServerSideProps() {
 
 	let ketqua = []
 	// #mien-bac .table-result-lottery#result_1 [data-value]
-	const tableResult = document.querySelector("#result_1")
-	tableResult.querySelectorAll('[data-value]').forEach(e => {
-		ketqua.push( e.textContent )
+	const tableResult = document.querySelector(".bg-white.br-10.table-shadow.m-b-15")
+	prizeSelector.forEach(s => {
+		tableResult.querySelectorAll(s).forEach(e => {
+			ketqua.push( e.textContent )
+		})
 	})
 
 	return { props: { data: ketqua } }
