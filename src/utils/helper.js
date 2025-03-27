@@ -133,4 +133,14 @@ function chunk(arr, size = 2) {
     return arrChildren;
 }
 
-export { handleText, chunk, hasKeywords, detectAndTransform, getIndicesOf, removeAccents, countOccurrences, calculateXien, calculateXN }
+const convertToNumberArray = (data) => {
+	return data.map(obj => 
+		Object.values(obj).map(value => value)
+	);
+};
+
+const flattenArrays = (arrays) => {
+    return arrays.reduce((flat, current) => flat.concat(current), []);
+};
+
+export { flattenArrays, convertToNumberArray, handleText, chunk, hasKeywords, detectAndTransform, getIndicesOf, removeAccents, countOccurrences, calculateXien, calculateXN }
