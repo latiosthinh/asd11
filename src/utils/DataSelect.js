@@ -5,7 +5,7 @@ const dataLo = {
 
 const dataDe = {
 	title: 'Đề',
-	data: [ 0.72, 0.725, 0.73, 0.74, 0.75, 0.8, 0.9, 1 ]
+	data: [ 0.72, 0.725, 0.73, 0.74, 0.75, 0.77, 0.8, 0.9, 1 ]
 }
 
 const dataXien = {
