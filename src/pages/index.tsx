@@ -81,15 +81,17 @@ export default function Home() {
   const [tongXQHit, setTongXQHit] = useState(0);
 
   const [finalResult, setFinalResult] = useState("");
+  const [selectedApi, setSelectedApi] = useState("xskt-net");
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [selectedApi]);
 
   const fetchData = async () => {
     try {
-      const response = await fetch("/api/lottery");
+      const response = await fetch(`/api/${selectedApi}`);
       const result = await response.json();
+      console.log(result);
 
       if (result.success) {
         setData(
@@ -1276,6 +1278,19 @@ export default function Home() {
       <div className="App p-5">
         <div className="container mx-auto">
           <div className="flex items-center justify-between mb-5">
+            <div className="flex-initial w-1/6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                API Source:
+              </label>
+              <select
+                value={selectedApi}
+                onChange={(e) => setSelectedApi(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
+              >
+                <option value="xskt-net">XSKT.net</option>
+                <option value="kqxs-vn">KQXS.vn</option>
+              </select>
+            </div>
             <div className="flex-initial w-1/6">
               <Select obj={dataLo} cb={handleXLo} />
             </div>
