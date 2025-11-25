@@ -1277,9 +1277,9 @@ export default function Home() {
     <>
       <div className="App p-5">
         <div className="container mx-auto">
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex-initial w-1/6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+          <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mb-5">
+            <div className="">
+              <label className="block text-xl font-medium text-white">
                 API Source:
               </label>
               <select
@@ -1291,19 +1291,19 @@ export default function Home() {
                 <option value="kqxs-vn">KQXS.vn</option>
               </select>
             </div>
-            <div className="flex-initial w-1/6">
+            <div className="">
               <Select obj={dataLo} cb={handleXLo} />
             </div>
-            <div className="flex-initial w-1/6">
+            <div className="">
               <Select obj={dataDe} cb={handleXDe} />
             </div>
-            <div className="flex-initial w-1/6">
+            <div className="">
               <Select obj={dataXien} cb={handleXXien} />
             </div>
-            <div className="flex-initial w-1/6">
+            <div className="">
               <Select obj={dataXienNhay} cb={handleXXN} />
             </div>
-            <div className="flex-initial w-1/6">
+            <div className="">
               <Select obj={dataBaCang} cb={handleXBC} />
             </div>
           </div>
@@ -1314,7 +1314,7 @@ export default function Home() {
           <p>
             Đề: <span className="text-rose-500 font-bold">{de_kq}</span>
           </p>
-          <p>Lô: {loHtml}</p>
+          <p className="break-words">Lô: {loHtml}</p>
 
           <div className="flex mt-5 mb-5 gap-5">
             <div className="flex-initial w-1/2">
