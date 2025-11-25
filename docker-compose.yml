@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.yarn
+    ports:
+      - "3456:3456"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--silent", "--fail", "http://127.0.0.1:3456"]
+      interval: 30s
+      timeout: 60s
+      retries: 3
+      start_period: 40s

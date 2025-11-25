@@ -1,0 +1,32 @@
+# using a node 20 image based on alpine linux
+FROM node:20-alpine
+
+# updating package lists
+RUN apk update
+
+# upgrading packages
+RUN apk upgrade
+
+# installing curl
+RUN apk add curl
+
+# set the work directory
+WORKDIR /app
+
+# copy all files to the container
+COPY . /app
+
+# copying the entrypoint-yarn.sh file to the root of the container
+COPY entrypoint-yarn.sh /
+
+# changing permissions of entrypoint-yarn.sh to make it executable
+RUN chmod 755 /entrypoint-yarn.sh
+
+# exposing port 3456
+EXPOSE 3456
+
+# running entrypoint-yarn.sh as the default command
+ENTRYPOINT ["/entrypoint-yarn.sh"]
+
+# configuring a health check to validate that everything is up and running
+HEALTHCHECK --timeout=60s CMD curl --silent --fail http://127.0.0.1:3456 || exit 1
