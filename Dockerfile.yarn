@@ -13,8 +13,17 @@ RUN apk add curl
 # set the work directory
 WORKDIR /app
 
-# copy all files to the container
+# copy package files first (for better caching)
+COPY package.json yarn.lock* /app/
+
+# install dependencies (this layer will be cached unless package.json changes)
+RUN yarn install --frozen-lockfile
+
+# copy all remaining files to the container (this will invalidate cache when source changes)
 COPY . /app
+
+# build the application during Docker build (ensures latest code is built)
+RUN yarn build
 
 # copying the entrypoint-yarn.sh file to the root of the container
 COPY entrypoint-yarn.sh /

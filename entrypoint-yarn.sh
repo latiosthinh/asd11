@@ -10,34 +10,8 @@ if [ ! -f "/app/package.json" ]; then
     exit 1
 fi
 
-# check if node_modules directory does not exist
-if [ ! -d "/app/node_modules" ]; then
-
-    # change directory to /app
-    cd /app
-
-    # install swc cli/core packages
-    yarn add --dev @swc/cli @swc/core
-
-    # install npm packages
-    yarn install
-
-    # build the application
-    yarn build
-fi
-
-# check if node_modules directory still does not exist after attempted installation
-if [ ! -d "/app/node_modules" ]; then
-
-    # print error message
-    echo "Cannot build the application"
-
-    # exit script
-    exit 1
-fi
-
 # change directory to /app
 cd /app
 
-# run node.js application
+# run node.js application (build is done during Docker build)
 yarn start
