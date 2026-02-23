@@ -1,26 +1,26 @@
 const dataLo = {
 	title: 'Lô',
-	data: [ 21.7, 21.75, 21.8, 21.85, 21.9, 22, 22.5 ]
+	data: [19.2, 21.7, 21.75, 21.8, 21.85, 21.9, 22, 22.5]
 }
 
 const dataDe = {
 	title: 'Đề',
-	data: [ 0.72, 0.725, 0.73, 0.74, 0.75, 0.76, 0.77, 0.8, 0.9, 1 ]
+	data: [0.72, 0.725, 0.73, 0.74, 0.75, 0.76, 0.77, 0.8, 0.9, 1]
 }
 
 const dataXien = {
 	title: 'Xiên',
-	data: [ 0.56, 0.57, 0.58, 0.6, 0.62, 0.63, 0.65, 0.7 ]
+	data: [0.56, 0.57, 0.58, 0.6, 0.62, 0.63, 0.65, 0.7]
 }
 
-const dataXienNhay = { 
+const dataXienNhay = {
 	title: 'XN',
-	data: [ 1.1, 1.2 ]
+	data: [1.1, 1.2]
 }
 
-const dataBaCang = { 
+const dataBaCang = {
 	title: '3 càng',
-	data: [ 0.65, 0.7, 0.75, 0.8, 1 ]
+	data: [0.65, 0.7, 0.75, 0.8, 1]
 }
 
 export { dataLo, dataDe, dataBaCang, dataXien, dataXienNhay }
