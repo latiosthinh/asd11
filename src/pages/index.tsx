@@ -136,6 +136,7 @@ export default function Home() {
     text &&
       setFirstInput(
         removeAccents(text.toUpperCase())
+          .replace(/₫/g, "")
           .replace(/[:;]/gim, "")
           .replace(/t(\w?)+\d?(?![\S\.\W]+)/gim, "") // remove tin1, tin2
           .replace(/\n/gim, " ")
@@ -1273,7 +1274,7 @@ export default function Home() {
               <select
                 value={selectedApi}
                 onChange={(e) => setSelectedApi(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-violet-500 focus:border-violet-500 outline-solid"
               >
                 <option value="xskt-net">XSKT.net</option>
                 <option value="kqxs-vn">KQXS.vn</option>
