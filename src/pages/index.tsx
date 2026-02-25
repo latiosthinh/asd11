@@ -115,7 +115,7 @@ export default function Home() {
     setDe_kq(data[0].substr(-2));
     setBc_kq(data[0].substr(-3));
 
-    let lo_kq:string[] = [];
+    let lo_kq: string[] = [];
     data.forEach((d) => {
       if (d.length < 3) {
         lo_kq.push(d);
@@ -430,6 +430,157 @@ export default function Home() {
     setSecondInput(str);
   };
 
+  const expandKeywords = (e, i, input) => {
+    const price = "-" + e.split("-")[1];
+
+    if (e.includes("BO")) {
+      const strRemove_Bo = e
+        .replace(/[\.\s]+?BO[\.\s]+?/gim, "")
+        .replace(/BO/gim, "");
+      const tempDe = strRemove_Bo
+        .split("-")[0]
+        .split(".")
+        .filter((e) => e);
+      const tempDe2 = [];
+      tempDe.forEach((t) => {
+        bo.forEach((b) => {
+          if (b.includes(t)) {
+            tempDe2.push(b);
+          }
+        });
+      });
+
+      input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
+      return true;
+    }
+
+    if (e.includes("DINH")) {
+      const strRemove_DINH = e.replace(/[\.]DINH[\.]/gim, "");
+      const tempDe = strRemove_DINH
+        .split("-")[0]
+        .split(/[,\.]/gim)
+        .filter((e) => e);
+
+      const tempDe2 = [];
+      tempDe.forEach((t) => {
+        dinh.forEach((b) => {
+          if (t.includes(b.title)) {
+            tempDe2.push(b.data);
+          }
+        });
+      });
+
+      input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
+      return true;
+    }
+
+    if (e.includes("KEP") || e.includes("KL")) {
+      const tempDe = e
+        .split("-")[0]
+        .split(/[,\.]/gim)
+        .filter((e) => e);
+      const tempDe2 = [];
+      tempDe.forEach((e) => {
+        if (e === "KEP") {
+          tempDe2.push(kep.join("."));
+        }
+
+        if (e === "KL") {
+          tempDe2.push(kl.join("."));
+        }
+      });
+
+      input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
+      return true;
+    }
+
+    if (e.includes("TONG")) {
+      const strRemove_Tong = e.replace(/[\.]TONG[\.]/gim, "");
+      const tempDe = strRemove_Tong
+        .split("-")[0]
+        .split(".")
+        .filter((e) => e);
+      const tempDe2 = [];
+
+      tempDe.forEach((t) => {
+        const remove_tong = t.replace("TONG", "");
+        tong.forEach((b) => {
+          if (remove_tong.includes(b.title.toUpperCase())) {
+            tempDe2.push(b.data);
+          }
+        });
+      });
+
+      input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
+      return true;
+    }
+
+    if (e.includes("DAU")) {
+      const strRemove_DAU = e.replace(/[\.]DAU[\.]/gim, "");
+      const tempDe = strRemove_DAU
+        .split("-")[0]
+        .split(".")
+        .filter((e) => e);
+      const tempDe2 = [];
+      tempDe.forEach((t) => {
+        dau.forEach((b) => {
+          if (t.includes(b.title)) {
+            tempDe2.push(b.data);
+          }
+        });
+      });
+
+      input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
+      return true;
+    }
+
+    if (e.includes("DIT")) {
+      const strRemove_DIT = e.replace(/[\.]DIT[\.]/gim, "");
+      const tempDe = strRemove_DIT
+        .split("-")[0]
+        .split(".")
+        .filter((e) => e);
+      const tempDe2 = [];
+      tempDe.forEach((t) => {
+        dit.forEach((b) => {
+          if (t.includes(b.title)) {
+            tempDe2.push(b.data);
+          }
+        });
+      });
+
+      input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
+      return true;
+    }
+
+    if (e.includes("DD")) {
+      const strRemove_DD = e.replace(/[\.]DD[\.]/gim, "");
+      const tempDe = strRemove_DD
+        .split("-")[0]
+        .split(".")
+        .filter((e) => e);
+      const tempDe2 = [];
+      tempDe.forEach((t) => {
+        dau.forEach((b) => {
+          if (t.includes(b.title)) {
+            tempDe2.push(b.data);
+          }
+        });
+
+        dit.forEach((b) => {
+          if (t.includes(b.title)) {
+            tempDe2.push(b.data);
+          }
+        });
+      });
+
+      input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
+      return true;
+    }
+
+    return false;
+  };
+
   const handleLo = (input) => {
     // step 4 - data analized
     for (let i = 0; i < input.length; i++) {
@@ -443,6 +594,8 @@ export default function Home() {
     input = input.filter((e) => e);
 
     input.forEach((e, i) => {
+      if (expandKeywords(e, i, input)) return;
+
       const price = "-" + e.split("-")[1];
       const temp = e
         .split("-")[0]
@@ -468,13 +621,11 @@ export default function Home() {
       const arr = e.split("-")[0].split(".");
       arr.forEach((a) => {
         if (countOccurrences(lo_kq, a) > 1) {
-          textLo1 += `<span class="${
-            lo_kq.includes(a) ? "font-bold text-rose-500" : ""
-          }">${a} (x${countOccurrences(lo_kq, a)})</span>.`;
+          textLo1 += `<span class="${lo_kq.includes(a) ? "font-bold text-rose-500" : ""
+            }">${a} (x${countOccurrences(lo_kq, a)})</span>.`;
         } else {
-          textLo1 += `<span class="${
-            lo_kq.includes(a) ? "font-bold text-rose-500" : ""
-          }">${a}</span>.`;
+          textLo1 += `<span class="${lo_kq.includes(a) ? "font-bold text-rose-500" : ""
+            }">${a}</span>.`;
         }
       });
 
@@ -535,143 +686,7 @@ export default function Home() {
             .replace(/,/gim, ".") + price;
       }
 
-      if (e.includes("BO")) {
-        const strRemove_Bo = e
-          .replace(/[\.\s]+?BO[\.\s]+?/gim, "")
-          .replace(/BO/gim, "");
-        const tempDe = strRemove_Bo
-          .split("-")[0]
-          .split(".")
-          .filter((e) => e);
-        const tempDe2 = [];
-        tempDe.forEach((t) => {
-          bo.forEach((b) => {
-            if (b.includes(t)) {
-              tempDe2.push(b);
-            }
-          });
-        });
-
-        input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
-      }
-
-      if (e.includes("DINH")) {
-        const strRemove_DINH = e.replace(/[\.]DINH[\.]/gim, "");
-        const tempDe = strRemove_DINH
-          .split("-")[0]
-          .split(/[,\.]/gim)
-          .filter((e) => e);
-
-        const tempDe2 = [];
-        tempDe.forEach((t) => {
-          dinh.forEach((b) => {
-            if (t.includes(b.title)) {
-              tempDe2.push(b.data);
-            }
-          });
-        });
-
-        input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
-      }
-
-      if (e.includes("KEP") || e.includes("KL")) {
-        const tempDe = e
-          .split("-")[0]
-          .split(/[,\.]/gim)
-          .filter((e) => e);
-        const tempDe2 = [];
-        tempDe.forEach((e) => {
-          if (e === "KEP") {
-            tempDe2.push(kep.join("."));
-          }
-
-          if (e === "KL") {
-            tempDe2.push(kl.join("."));
-          }
-        });
-
-        input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
-      }
-
-      if (e.includes("TONG")) {
-        const strRemove_Tong = e.replace(/[\.]TONG[\.]/gim, "");
-        const tempDe = strRemove_Tong
-          .split("-")[0]
-          .split(".")
-          .filter((e) => e);
-        const tempDe2 = [];
-
-        tempDe.forEach((t) => {
-          const remove_tong = t.replace("TONG", "");
-          tong.forEach((b) => {
-            if (remove_tong.includes(b.title.toUpperCase())) {
-              tempDe2.push(b.data);
-            }
-          });
-        });
-
-        input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
-      }
-
-      if (e.includes("DAU")) {
-        const strRemove_DAU = e.replace(/[\.]DAU[\.]/gim, "");
-        const tempDe = strRemove_DAU
-          .split("-")[0]
-          .split(".")
-          .filter((e) => e);
-        const tempDe2 = [];
-        tempDe.forEach((t) => {
-          dau.forEach((b) => {
-            if (t.includes(b.title)) {
-              tempDe2.push(b.data);
-            }
-          });
-        });
-
-        input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
-      }
-
-      if (e.includes("DIT")) {
-        const strRemove_DIT = e.replace(/[\.]DIT[\.]/gim, "");
-        const tempDe = strRemove_DIT
-          .split("-")[0]
-          .split(".")
-          .filter((e) => e);
-        const tempDe2 = [];
-        tempDe.forEach((t) => {
-          dit.forEach((b) => {
-            if (t.includes(b.title)) {
-              tempDe2.push(b.data);
-            }
-          });
-        });
-
-        input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
-      }
-
-      if (e.includes("DD")) {
-        const strRemove_DD = e.replace(/[\.]DD[\.]/gim, "");
-        const tempDe = strRemove_DD
-          .split("-")[0]
-          .split(".")
-          .filter((e) => e);
-        const tempDe2 = [];
-        tempDe.forEach((t) => {
-          dau.forEach((b) => {
-            if (t.includes(b.title)) {
-              tempDe2.push(b.data);
-            }
-          });
-
-          dit.forEach((b) => {
-            if (t.includes(b.title)) {
-              tempDe2.push(b.data);
-            }
-          });
-        });
-
-        input[i] = tempDe2.join(".").replace(/,/gim, ".") + price;
-      }
+      expandKeywords(e, i, input);
     });
 
     input.forEach((e, i) => {
@@ -689,9 +704,8 @@ export default function Home() {
       let textDe1 = "<p>";
       const arr = e.split("-")[0].split(".");
       arr.forEach((a) => {
-        textDe1 += `<span class="${
-          de_kq.includes(a) ? "font-bold text-rose-500" : ""
-        }">${a}</span>.`;
+        textDe1 += `<span class="${de_kq.includes(a) ? "font-bold text-rose-500" : ""
+          }">${a}</span>.`;
       });
 
       textDe1 += `-<span class="font-bold">${e.split("-")[1]}</span></p>`;
@@ -728,8 +742,7 @@ export default function Home() {
     let textBC = "";
     newBC.forEach(
       (e) =>
-        (textBC += `<p class="${
-          bc_kq.includes(e.split("-")[0]) ? "font-bold text-rose-500" : ""
+      (textBC += `<p class="${bc_kq.includes(e.split("-")[0]) ? "font-bold text-rose-500" : ""
         }">${e}</p>`)
     );
     setFinalBC(textBC);
@@ -764,13 +777,11 @@ export default function Home() {
     let textXien = "";
     input.forEach((e) => {
       const arr = e.split("-")[0].split(".");
-      textXien += `<p class="${
-        e.includes("undefined") ? "font-bold text-rose-500" : ""
-      }${
-        calculateXien(arr, lo_kq) === arr.length
+      textXien += `<p class="${e.includes("undefined") ? "font-bold text-rose-500" : ""
+        }${calculateXien(arr, lo_kq) === arr.length
           ? "font-bold text-rose-500"
           : ""
-      }">${e}</p>`;
+        }">${e}</p>`;
     });
     setFinalXien(textXien);
   };
@@ -826,12 +837,10 @@ export default function Home() {
     let textXN = "";
     input.forEach(
       (e) =>
-        (textXN += `<p class="${
-          e.includes("undefined") ? "font-bold text-rose-500" : ""
-        }${
-          calculateXien(lo_kq, e.split("-")[0].split(".")) > 1
-            ? "font-bold text-rose-500"
-            : ""
+      (textXN += `<p class="${e.includes("undefined") ? "font-bold text-rose-500" : ""
+        }${calculateXien(lo_kq, e.split("-")[0].split(".")) > 1
+          ? "font-bold text-rose-500"
+          : ""
         }">${e}</p>`)
     );
     setFinalXN(textXN);
@@ -910,13 +919,12 @@ export default function Home() {
       const hit =
         calculateXien(arr, lo_kq) > 1
           ? `<span class="font-bold text-rose-500">(${calculateXien(
-              arr,
-              lo_kq
-            )} con)</span>`
+            arr,
+            lo_kq
+          )} con)</span>`
           : "";
-      textXQ += `<p class="${
-        e.includes("undefined") ? "font-bold text-rose-500" : ""
-      }">${e} ${hit}</p>`;
+      textXQ += `<p class="${e.includes("undefined") ? "font-bold text-rose-500" : ""
+        }">${e} ${hit}</p>`;
     });
     setFinalXQ(textXQ);
   };
@@ -1139,91 +1147,71 @@ export default function Home() {
 
   const handleFinalResult = useCallback(() => {
     setFinalResult(`<br/>
-			<h3 class="text-xl font-bold">Lô: ${Math.round(tongLo * 100) / 100} = ${
-      Math.round(tongLo * xLo * 100) / 100
-    }/<span class="text-rose-500">${
-      Math.round(tongLoHit * 1000) / 1000
-    }</span> = <span class="text-3xl">${
-      Math.round((tongLo * xLo - tongLoHit) * 1000) / 1000
-    }</span></h3>
-			<h3 class="text-xl font-bold">Đề: ${Math.round(tongDe * 100) / 100} = ${
-      Math.round(tongDe * xDe * 100) / 100
-    }/<span class="text-rose-500">${
-      Math.round(tongDeHit * 1000) / 1000
-    }</span> = <span class="text-3xl">${
-      Math.round((tongDe * xDe - tongDeHit) * 1000) / 1000
-    }</span></h3>
-			<h3 class="text-xl font-bold">BC: ${Math.round(tongBC * 100) / 100} = ${
-      Math.round(tongBC * xBC * 100) / 100
-    }/<span class="text-rose-500">${
-      Math.round(tongBCHit * 1000) / 1000
-    }</span> = <span class="text-3xl">${
-      Math.round((tongBC * xBC - tongBCHit) * 1000) / 1000
-    }</span></h3>
-			<h3 class="text-xl font-bold">X : ${Math.round(tongXien * 100) / 100} = ${
-      Math.round(tongXien * xXien * 100) / 100
-    }/<span class="text-rose-500">${
-      Math.round(tongXienHit * 1000) / 1000
-    }</span> = <span class="text-3xl">${
-      Math.round((tongXien * xXien - tongXienHit) * 1000) / 1000
-    }</h3>
-			<h3 class="text-xl font-bold">XN: ${Math.round(tongXN * 100) / 100} = ${
-      Math.round(tongXN * xXN * 100) / 100
-    }/<span class="text-rose-500">${
-      Math.round(tongXNHit * 1000) / 1000
-    }</span> = <span class="text-3xl">${
-      Math.round((tongXN * xXN - tongXNHit) * 1000) / 1000
-    }</h3>
-			<h3 class="text-xl font-bold">XQ: ${Math.round(tongXQ * 100) / 100} = ${
-      Math.round(tongXQ * xXien * 100) / 100
-    }/<span class="text-rose-500">${
-      Math.round(tongXQHit * 1000) / 1000
-    }</span> = <span class="text-3xl">${
-      Math.round((tongXQ * xXien - tongXQHit) * 1000) / 1000
-    }</span></h3>
+			<h3 class="text-xl font-bold">Lô: ${Math.round(tongLo * 100) / 100} = ${Math.round(tongLo * xLo * 100) / 100
+      }/<span class="text-rose-500">${Math.round(tongLoHit * 1000) / 1000
+      }</span> = <span class="text-3xl">${Math.round((tongLo * xLo - tongLoHit) * 1000) / 1000
+      }</span></h3>
+			<h3 class="text-xl font-bold">Đề: ${Math.round(tongDe * 100) / 100} = ${Math.round(tongDe * xDe * 100) / 100
+      }/<span class="text-rose-500">${Math.round(tongDeHit * 1000) / 1000
+      }</span> = <span class="text-3xl">${Math.round((tongDe * xDe - tongDeHit) * 1000) / 1000
+      }</span></h3>
+			<h3 class="text-xl font-bold">BC: ${Math.round(tongBC * 100) / 100} = ${Math.round(tongBC * xBC * 100) / 100
+      }/<span class="text-rose-500">${Math.round(tongBCHit * 1000) / 1000
+      }</span> = <span class="text-3xl">${Math.round((tongBC * xBC - tongBCHit) * 1000) / 1000
+      }</span></h3>
+			<h3 class="text-xl font-bold">X : ${Math.round(tongXien * 100) / 100} = ${Math.round(tongXien * xXien * 100) / 100
+      }/<span class="text-rose-500">${Math.round(tongXienHit * 1000) / 1000
+      }</span> = <span class="text-3xl">${Math.round((tongXien * xXien - tongXienHit) * 1000) / 1000
+      }</h3>
+			<h3 class="text-xl font-bold">XN: ${Math.round(tongXN * 100) / 100} = ${Math.round(tongXN * xXN * 100) / 100
+      }/<span class="text-rose-500">${Math.round(tongXNHit * 1000) / 1000
+      }</span> = <span class="text-3xl">${Math.round((tongXN * xXN - tongXNHit) * 1000) / 1000
+      }</h3>
+			<h3 class="text-xl font-bold">XQ: ${Math.round(tongXQ * 100) / 100} = ${Math.round(tongXQ * xXien * 100) / 100
+      }/<span class="text-rose-500">${Math.round(tongXQHit * 1000) / 1000
+      }</span> = <span class="text-3xl">${Math.round((tongXQ * xXien - tongXQHit) * 1000) / 1000
+      }</span></h3>
 			<br>
 			<h2>
 				<span class="text-2xl font-bold">TỔNG = </span>
 				<span class="text-rose-500 text-3xl font-bold">
-					${
-            Math.round(
-              (tongLo * xLo +
-                tongDe * xDe +
-                tongBC * xBC +
-                tongXien * xXien +
-                tongXN * xXN +
-                tongXQ * xXien -
-                tongLoHit -
-                tongDeHit -
-                tongBCHit -
-                tongXienHit -
-                tongXNHit -
-                tongXQHit) *
-                1000
-            ) / 1000
-          }
+					${Math.round(
+        (tongLo * xLo +
+          tongDe * xDe +
+          tongBC * xBC +
+          tongXien * xXien +
+          tongXN * xXN +
+          tongXQ * xXien -
+          tongLoHit -
+          tongDeHit -
+          tongBCHit -
+          tongXienHit -
+          tongXNHit -
+          tongXQHit) *
+        1000
+      ) / 1000
+      }
 				</span>
 			</h2>
 
 			<h2 class="text-rose-500 font-bold text-3xl">Khách =
-				${
-          Math.round(
-            0 -
-              (tongLo * xLo +
-                tongDe * xDe +
-                tongBC * xBC +
-                tongXien * xXien +
-                tongXN * xXN +
-                tongXQ * xXien -
-                tongLoHit -
-                tongDeHit -
-                tongBCHit -
-                tongXienHit -
-                tongXNHit -
-                tongXQHit) *
-                1000
-          ) / 1000
-        }
+				${Math.round(
+        0 -
+        (tongLo * xLo +
+          tongDe * xDe +
+          tongBC * xBC +
+          tongXien * xXien +
+          tongXN * xXN +
+          tongXQ * xXien -
+          tongLoHit -
+          tongDeHit -
+          tongBCHit -
+          tongXienHit -
+          tongXNHit -
+          tongXQHit) *
+        1000
+      ) / 1000
+      }
 			</h2>
 		`);
   }, [
@@ -1362,13 +1350,13 @@ export default function Home() {
             finalXQ ||
             finalXN ||
             finalBC) && (
-            <button
-              className="bg-rose-500 px-7 py-3 text-white rounded-sm"
-              onClick={handleCalculate}
-            >
-              Tính điểm
-            </button>
-          )}
+              <button
+                className="bg-rose-500 px-7 py-3 text-white rounded-sm"
+                onClick={handleCalculate}
+              >
+                Tính điểm
+              </button>
+            )}
 
           <div className="flex gap-10">
             <div className="flex-initial w-1/2">
