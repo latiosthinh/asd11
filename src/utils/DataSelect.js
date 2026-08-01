@@ -1,11 +1,11 @@
 const dataLo = {
 	title: 'Lô',
-	data: [21.7, 21.75, 21.8, 21.85, 21.9, 21.92, 22, 22.5]
+	data: [21.7, 21.75, 21.8, 21.85, 21.9, 21.92, 22, 22.2, 22.5]
 }
 
 const dataDe = {
 	title: 'Đề',
-	data: [0.72, 0.725, 0.73, 0.74, 0.75, 0.76, 0.77, 0.8, 0.9, 1]
+	data: [0.72, 0.725, 0.73, 0.735, 0.74, 0.75, 0.76, 0.77, 0.8, 0.9, 1]
 }
 
 const dataXien = {
@@ -15,7 +15,7 @@ const dataXien = {
 
 const dataXienNhay = {
 	title: 'XN',
-	data: [1.1, 1.2]
+	data: [1.1, 1.15, 1.2]
 }
 
 const dataBaCang = {
